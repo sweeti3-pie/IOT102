@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#faf7f2">
+  <title>SmartHome</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="main">
+
+    <!-- ═══════════════════ DASHBOARD ═══════════════════ -->
+    <section class="page active" id="dashboard">
+
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Good to see you</h1>
+          <p class="page-sub" id="datetime">—</p>
+        </div>
+        <div class="header-env">
+          <span id="dayNightBadge" class="env-badge"><i class="ti ti-sun"></i> —</span>
+          <span id="rainBadge" class="env-badge"><i class="ti ti-droplet"></i> —</span>
+          <span id="humanBadge" class="env-badge"><i class="ti ti-user"></i> —</span>
+        </div>
+      </div>
+
+      <!-- SENSOR CARDS -->
+      <div class="section-block">
+        <h2 class="section-title">Live sensors</h2>
+        <div class="sensor-grid">
+
+          <!-- <div class="sensor-card" id="card-temp">
+            <div class="sensor-icon"><i class="ti ti-temperature"></i></div>
+            <div class="sensor-info">
+              <span class="sensor-label">Temperature</span>
+              <span class="sensor-value" id="tempVal">--°C</span>
+            </div>
+            <div class="sensor-bar"><div class="sensor-bar-fill" id="tempBar"></div></div>
+            <span class="sensor-status" id="tempStatus">—</span>
+          </div>
+
+          <div class="sensor-card" id="card-humid">
+            <div class="sensor-icon"><i class="ti ti-droplet-half-2"></i></div>
+            <div class="sensor-info">
+              <span class="sensor-label">Humidity</span>
+              <span class="sensor-value" id="humidVal">--%</span>
+            </div>
+            <div class="sensor-bar"><div class="sensor-bar-fill" id="humidBar"></div></div>
+            <span class="sensor-status" id="humidStatus">—</span>
+          </div>
+
+          <div class="sensor-card" id="card-gas">
+            <div class="sensor-icon"><i class="ti ti-wind"></i></div>
+            <div class="sensor-info">
+              <span class="sensor-label">Gas / smoke</span>
+              <span class="sensor-value" id="gasVal">-- ppm</span>
+            </div>
+            <div class="sensor-bar"><div class="sensor-bar-fill" id="gasBar"></div></div>
+            <span class="sensor-status" id="gasStatus">—</span>
+          </div>
+
+          <div class="sensor-card" id="card-rain">
+            <div class="sensor-icon"><i class="ti ti-cloud-rain"></i></div>
+            <div class="sensor-info">
+              <span class="sensor-label">Rain sensor</span>
+              <span class="sensor-value" id="rainVal">--</span>
+            </div>
+            <div class="sensor-bar"><div class="sensor-bar-fill" id="rainBar"></div></div>
+            <span class="sensor-status" id="rainStatus">—</span>
+          </div>
+
+          <div class="sensor-card" id="card-human">
+            <div class="sensor-icon"><i class="ti ti-walk"></i></div>
+            <div class="sensor-info">
+              <span class="sensor-label">Human presence</span>
+              <span class="sensor-value" id="humanVal">--</span>
+            </div>
+            <div class="sensor-bar"><div class="sensor-bar-fill" id="humanBar"></div></div>
+            <span class="sensor-status" id="humanStatus">—</span>
+          </div>
+
+          <div class="sensor-card" id="card-light">
+            <div class="sensor-icon"><i class="ti ti-bulb"></i></div>
+            <div class="sensor-info">
+              <span class="sensor-label">Light level</span>
+              <span class="sensor-value" id="lightVal">-- lux</span>
+            </div>
+            <div class="sensor-bar"><div class="sensor-bar-fill" id="lightBar"></div></div>
+            <span class="sensor-status" id="lightStatus">—</span>
+          </div> -->
+
+          <div class="sensor-card" id="card-temp">
+            <div class="sensor-icon"><img src="img/temperature-icon.png" alt="Temp" class="sensor-custom-img"></div>
+            <div class="sensor-info">
+              <span class="sensor-label">Temperature</span>
+              <span class="sensor-value" id="tempVal">--°C</span>
+            </div>
+            <div class="sensor-bar"><div class="sensor-bar-fill" id="tempBar"></div></div>
+            <span class="sensor-status" id="tempStatus">—</span>
+          </div>
+
+          <div class="sensor-card" id="card-humid">
+            <div class="sensor-icon"><img src="img/humidity-icon.png" alt="Humid" class="sensor-custom-img"></div>
+            <div class="sensor-info">
+              <span class="sensor-label">Humidity</span>
+              <span class="sensor-value" id="humidVal">--%</span>
+            </div>
+            <div class="sensor-bar"><div class="sensor-bar-fill" id="humidBar"></div></div>
+            <span class="sensor-status" id="humidStatus">—</span>
+          </div>
+
+          <div class="sensor-card" id="card-gas">
+            <div class="sensor-icon"><img src="img/fire-icon.png" alt="Gas" class="sensor-custom-img"></div>
+            <div class="sensor-info">
+              <span class="sensor-label">Gas / smoke</span>
+              <span class="sensor-value" id="gasVal">-- ppm</span>
+            </div>
+            <div class="sensor-bar"><div class="sensor-bar-fill" id="gasBar"></div></div>
+            <span class="sensor-status" id="gasStatus">—</span>
+          </div>
+
+          <div class="sensor-card" id="card-rain">
+            <div class="sensor-icon"><img src="img/rain-icon.png" alt="Rain" class="sensor-custom-img"></div>
+            <div class="sensor-info">
+              <span class="sensor-label">Rain sensor</span>
+              <span class="sensor-value" id="rainVal">--</span>
+            </div>
+            <div class="sensor-bar"><div class="sensor-bar-fill" id="rainBar"></div></div>
+            <span class="sensor-status" id="rainStatus">—</span>
+          </div>
+
+          <div class="sensor-card" id="card-human">
+            <div class="sensor-icon"><img src="img/human-icon.png" alt="Human" class="sensor-custom-img"></div>
+            <div class="sensor-info">
+              <span class="sensor-label">Human presence</span>
+              <span class="sensor-value" id="humanVal">--</span>
+            </div>
+            <div class="sensor-bar"><div class="sensor-bar-fill" id="humanBar"></div></div>
+            <span class="sensor-status" id="humanStatus">—</span>
+          </div>
+
+          <div class="sensor-card" id="card-light">
+            <div class="sensor-icon"><img src="img/light-icon.png" alt="Light" class="sensor-custom-img"></div>
+            <div class="sensor-info">
+              <span class="sensor-label">Light level</span>
+              <span class="sensor-value" id="lightVal">-- lux</span>
+            </div>
+            <div class="sensor-bar"><div class="sensor-bar-fill" id="lightBar"></div></div>
+            <span class="sensor-status" id="lightStatus">—</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CHARTS -->
+      <div class="section-block">
+        <h2 class="section-title">Trends</h2>
+        <div class="chart-grid">
+          <div class="chart-box">
+            <h3 class="chart-title">Temperature (°C)</h3>
+            <canvas id="tempChart" height="120"></canvas>
+          </div>
+          <div class="chart-box">
+            <h3 class="chart-title">Humidity (%)</h3>
+            <canvas id="humidChart" height="120"></canvas>
+          </div>
+          <div class="chart-box">
+            <h3 class="chart-title">Gas level (ppm)</h3>
+            <canvas id="gasChart" height="120"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════ CONTROL ═══════════════════ -->
+    <section class="page" id="control">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Control</h1>
+          <p class="page-sub">Switch modes or take over manually</p>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="device-grid">
+
+          <div class="device-card" id="dev-fan">
+            <div class="device-top">
+              <div class="device-icon-wrap"><i class="ti ti-fan"></i></div>
+              <div class="device-name-wrap">
+                <span class="device-name">Fan</span>
+                <span class="device-auto" id="fanAuto" onclick="resetToAuto('fan')" style="cursor: pointer;" title="Click to reset to Auto">Auto</span>
+              </div>
+            </div>
+            <p class="device-reason" id="fanReason">Monitoring…</p>
+            
+            <div class="device-footer">
+              <span class="device-state" id="fanState">Off</span>
+              <label class="toggle">
+                <input type="checkbox" id="fanToggle" onchange="remoteControl('fan', this.checked)">
+                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+              </label>
+            </div>
+            
+            <div class="device-slider-wrap">
+              <input type="range" id="fanSpeed" min="0" max="100" value="100" onchange="changeIntensity('fan', this.value)" oninput="updateSliderUI('fan', this.value)">
+              <span class="slider-val" id="fanSpeedVal">100%</span>
+            </div>
+          </div>
+
+          <div class="device-card" id="dev-light">
+            <div class="device-top">
+              <div class="device-icon-wrap"><i class="ti ti-bulb"></i></div>
+              <div class="device-name-wrap">
+                <span class="device-name">Light</span>
+                <span class="device-auto" id="lightAuto" onclick="resetToAuto('light')" style="cursor: pointer;" title="Click to reset to Auto">Auto</span>
+              </div>
+            </div>
+            <p class="device-reason" id="lightReason">Monitoring…</p>
+            
+            <div class="device-footer">
+              <span class="device-state" id="lightState">Off</span>
+              <label class="toggle">
+                <input type="checkbox" id="lightToggle" onchange="remoteControl('light', this.checked)">
+                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+              </label>
+            </div>
+            
+            <div class="device-slider-wrap">
+              <input type="range" id="lightIntensity" min="0" max="100" value="100" onchange="changeIntensity('light', this.value)" oninput="updateSliderUI('light', this.value)">
+              <span class="slider-val" id="lightIntensityVal">100%</span>
+            </div>
+          </div>
+
+          <div class="device-card" id="dev-awning">
+            <div class="device-top">
+              <div class="device-icon-wrap"><i class="ti ti-awning"></i></div>
+              <div class="device-name-wrap">
+                <span class="device-name">Awning</span>
+                <span class="device-auto" id="awningAuto" onclick="resetToAuto('awning')" style="cursor: pointer;" title="Click to reset to Auto">Auto</span>              </div>
+            </div>
+            <p class="device-reason" id="awningReason">Monitoring…</p>
+            <div class="device-footer">
+              <span class="device-state" id="awningState">Closed</span>
+              <label class="toggle">
+                <input type="checkbox" id="awningToggle" onchange="remoteControl('awning', this.checked)">
+                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="section-block">
+        <h2 class="section-title">All devices</h2>
+        <div class="devices-table-wrap">
+          <table class="devices-table">
+            <thead>
+              <tr>
+                <th>Device</th>
+                <th>State</th>
+                <th>Mode</th>
+                <th>Trigger condition</th>
+                <th>Override</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Fan</td>
+                <td><span class="state-pill" id="dt-fanState">Off</span></td>
+                <td id="dt-fanMode">Auto</td>
+                <td>Temp above 30°C, humidity above 80%, or someone's home</td>
+                <td>
+                  <label class="toggle sm">
+                    <input type="checkbox" id="dt-fanToggle" onchange="remoteControl('fan', this.checked)">
+                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Light</td>
+                <td><span class="state-pill" id="dt-lightState">Off</span></td>
+                <td id="dt-lightMode">Auto</td>
+                <td>Night and someone's home</td>
+                <td>
+                  <label class="toggle sm">
+                    <input type="checkbox" id="dt-lightToggle" onchange="remoteControl('light', this.checked)">
+                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Awning</td>
+                <td><span class="state-pill" id="dt-awningState">Closed</span></td>
+                <td id="dt-awningMode">Auto</td>
+                <td>Closes on rain, opens when dry</td>
+                <td>
+                  <label class="toggle sm">
+                    <input type="checkbox" id="dt-awningToggle" onchange="remoteControl('awning', this.checked)">
+                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ HISTORY ═══════════════════ -->
+    <section class="page" id="history">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">History</h1>
+          <p class="page-sub">Recent alerts and activity</p>
+        </div>
+        <button class="btn-clear" onclick="clearAlerts()">Clear all</button>
+      </div>
+      <div class="section-block">
+        <div class="alert-list" id="alertList">
+          <p class="no-alerts">Nothing to show yet — all calm</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ SETTINGS ═══════════════════ -->
+<section class="page" id="settings">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Settings</h1>
+          <p class="page-sub">Connection and preferences</p>
+        </div>
+      </div>
+      <div class="section-block">
+        <div class="settings-card">
+          
+          <div class="settings-row">
+            <div>
+              <span class="settings-label">Connection</span>
+              <p class="settings-desc">Realtime database link status</p>
+            </div>
+            <div class="conn-pill">
+              <span class="status-dot" id="connStatus"></span>
+              <span id="connLabel">Connecting…</span>
+            </div>
+          </div>
+          
+          <div class="settings-row" style="border-top: 1px solid var(--border); padding-top: 18px;">
+            <div>
+              <span class="settings-label">Demo Mode</span>
+              <p class="settings-desc">Use virtual data to test the interface</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="demoModeSwitch" onchange="toggleDemoMode(this.checked)">
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FLOATING NAV -->
+    <nav class="float-nav">
+    <button class="nav-btn active" data-page="dashboard" aria-label="Dashboard">
+      <img src="img/dashboard-icon.png" alt="Dashboard" class="nav-custom-img">
+    </button>
+    
+    <button class="nav-btn" data-page="control" aria-label="Control">
+      <img src="img/control-icon.png" alt="Control" class="nav-custom-img">
+    </button>
+    
+    <button class="nav-btn" data-page="history" aria-label="History">
+      <img src="img/history-icon.png" alt="History" class="nav-custom-img">
+      <span class="nav-dot" id="alertDot"></span>
+    </button>
+    
+    <button class="nav-btn" data-page="settings" aria-label="Settings">
+      <img src="img/settings-icon.png" alt="Settings" class="nav-custom-img">
+    </button>
+    
+    <button class="nav-btn" id="themeToggle" aria-label="Toggle Theme">
+      <img src="img/sun-icon.png" alt="Theme" class="nav-custom-img" id="themeImg">
+    </button>
+  </nav>
+
+  <!-- ALARM OVERLAY -->
+  <div class="alarm-overlay" id="alarmOverlay">
+    <div class="alarm-box">
+      <div class="alarm-icon"><i class="ti ti-flame"></i></div>
+      <h2 class="alarm-title" id="alarmTitle">Danger</h2>
+      <p class="alarm-msg" id="alarmMsg">High gas / smoke detected</p>
+      <button class="alarm-dismiss" onclick="dismissAlarm()">Acknowledge</button>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
