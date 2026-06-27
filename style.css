@@ -57,12 +57,15 @@ body {
   color: var(--text);
   font-family: var(--font-mono);
   min-height: 100vh;
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .main {
   max-width: 1080px;
   margin: 0 auto;
   padding: 48px 32px 120px;
+  padding-top: max(48px, calc(env(safe-area-inset-top, 0px) + 24px));
+  padding-bottom: max(120px, calc(env(safe-area-inset-bottom, 0px) + 100px));
 }
 
 .page { display: none; }
@@ -406,7 +409,7 @@ body {
 /* ─── FLOATING NAV ─────────────────────────────────────────── */
 .float-nav {
   position: fixed;
-  bottom: 28px;
+  bottom: max(28px, calc(env(safe-area-inset-bottom, 0px) + 12px));
   left: 50%;
   transform: translateX(-50%);
   display: flex;

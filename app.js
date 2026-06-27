@@ -597,30 +597,34 @@ function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 // bottom of <body>.
 window.addEventListener('load', () => {
 
-  // Theme toggle (needs DOM to be ready)
-  const themeToggleBtn = document.getElementById('themeToggle');
-  const themeImg       = document.getElementById('themeImg');
+  // ── Theme colors: must match --bg in :root and [data-theme="dark"] in style.css ──
+  const THEME_COLORS = { light: '#faf7f2', dark: '#181a1b' };
 
-  const savedTheme = localStorage.getItem('smartHomeTheme');
-  if (savedTheme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    if (themeImg) themeImg.src = 'img/moon-icon.png';
-  } else {
-    if (themeImg) themeImg.src = 'img/sun-icon.png';
+  function applyTheme(dark) {
+    const root      = document.documentElement;
+    const themeMeta = document.getElementById('themeMetaColor');
+    const themeImg  = document.getElementById('themeImg');
+    if (dark) {
+      root.setAttribute('data-theme', 'dark');
+      if (themeMeta) themeMeta.setAttribute('content', THEME_COLORS.dark);
+      if (themeImg)  themeImg.src = 'img/moon-icon.png';
+      localStorage.setItem('smartHomeTheme', 'dark');
+    } else {
+      root.removeAttribute('data-theme');
+      if (themeMeta) themeMeta.setAttribute('content', THEME_COLORS.light);
+      if (themeImg)  themeImg.src = 'img/sun-icon.png';
+      localStorage.setItem('smartHomeTheme', 'light');
+    }
   }
 
+  // Apply saved theme on first load
+  applyTheme(localStorage.getItem('smartHomeTheme') === 'dark');
+
+  // Toggle on button click
+  const themeToggleBtn = document.getElementById('themeToggle');
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      if (isDark) {
-        document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('smartHomeTheme', 'light');
-        if (themeImg) themeImg.src = 'img/sun-icon.png';
-      } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('smartHomeTheme', 'dark');
-        if (themeImg) themeImg.src = 'img/moon-icon.png';
-      }
+      applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
     });
   }
 
