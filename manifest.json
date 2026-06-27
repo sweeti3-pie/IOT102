@@ -3,7 +3,7 @@
   "short_name": "SmartHome",
   "description": "Smart home control system and automation",
   "start_url": "./index.html",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#faf7f2",
   "theme_color": "#faf7f2",
   "icons": [
