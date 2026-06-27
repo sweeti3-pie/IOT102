@@ -597,42 +597,30 @@ function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 // bottom of <body>.
 window.addEventListener('load', () => {
 
-  // ── Theme colors: must match --bg in :root and [data-theme="dark"] in style.css ──
-  const THEME_COLORS = { light: '#faf7f2', dark: '#181a1b' };
+  // Theme toggle (needs DOM to be ready)
+  const themeToggleBtn = document.getElementById('themeToggle');
+  const themeImg       = document.getElementById('themeImg');
 
-  function applyTheme(dark) {
-    const root      = document.documentElement;
-    const themeMeta = document.getElementById('themeMetaColor');
-    const themeImg  = document.getElementById('themeImg');
-    const bg        = dark ? THEME_COLORS.dark : THEME_COLORS.light;
-
-    if (dark) {
-      root.setAttribute('data-theme', 'dark');
-      if (themeImg) themeImg.src = 'img/moon-icon.png';
-      localStorage.setItem('smartHomeTheme', 'dark');
-    } else {
-      root.removeAttribute('data-theme');
-      if (themeImg) themeImg.src = 'img/sun-icon.png';
-      localStorage.setItem('smartHomeTheme', 'light');
-    }
-
-    // Set html background inline so iOS status bar area ALWAYS matches --bg,
-    // even during scroll or immediately after a theme toggle.
-    // This overrides the CSS default and stays in sync on every change.
-    root.style.backgroundColor = bg;
-
-    // Android: update status bar color to match
-    if (themeMeta) themeMeta.setAttribute('content', bg);
+  const savedTheme = localStorage.getItem('smartHomeTheme');
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    if (themeImg) themeImg.src = 'img/moon-icon.png';
+  } else {
+    if (themeImg) themeImg.src = 'img/sun-icon.png';
   }
 
-  // Apply saved theme on first load
-  applyTheme(localStorage.getItem('smartHomeTheme') === 'dark');
-
-  // Toggle on button click
-  const themeToggleBtn = document.getElementById('themeToggle');
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
-      applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('smartHomeTheme', 'light');
+        if (themeImg) themeImg.src = 'img/sun-icon.png';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('smartHomeTheme', 'dark');
+        if (themeImg) themeImg.src = 'img/moon-icon.png';
+      }
     });
   }
 
