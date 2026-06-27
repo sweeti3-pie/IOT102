@@ -52,9 +52,11 @@ body, .device-card, .sensor-card, .chart-box, .settings-card, .float-nav {
 
 html {
   font-size: 16px;
-  /* iOS reads the color of <html> for the safe-area gap behind the status bar.
-     JS sets this inline on every theme toggle so it always matches --bg exactly. */
-  background: #faf7f2; /* light default — JS overrides this immediately on load */
+  /* iOS/Chrome read the color behind the viewport (incl. the safe-area strip
+     under the status bar) from <html>'s background. Tie it directly to the
+     --bg variable so it always matches the current theme automatically —
+     no JS needed to keep it in sync. */
+  background: var(--bg);
   transition: background-color 0.3s ease;
 }
 

@@ -616,7 +616,14 @@ window.addEventListener('load', () => {
       localStorage.setItem('smartHomeTheme', 'light');
     }
 
-    // Android: update status bar color to match
+    // Belt-and-suspenders: set <html> background INLINE too, not just via
+    // the CSS var. iOS Safari/PWA sometimes paints the safe-area strip
+    // behind the status bar from the computed style at the moment of the
+    // attribute change, and inline style guarantees zero lag vs. the CSS
+    // var + transition resolving on the next frame.
+    root.style.background = bg;
+
+    // Android Chrome: update the status bar color to match.
     if (themeMeta) themeMeta.setAttribute('content', bg);
   }
 
