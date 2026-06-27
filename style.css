@@ -63,17 +63,15 @@ body {
   color: var(--text);
   font-family: var(--font-mono);
   min-height: 100vh;
-  /* Push content below the transparent iOS status bar */
-  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .main {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 48px 32px 120px;
-  /* Extra top clearance on iOS so content doesn't hide under status bar */
-  padding-top: max(48px, calc(env(safe-area-inset-top, 0px) + 24px));
-  /* Extra bottom clearance so content clears the floating nav + home indicator */
+  padding-left: 32px;
+  padding-right: 32px;
+  /* safe-area-inset-top applied ONCE here only */
+  padding-top: max(24px, calc(env(safe-area-inset-top, 0px) + 16px));
   padding-bottom: max(120px, calc(env(safe-area-inset-bottom, 0px) + 100px));
 }
 
@@ -526,7 +524,13 @@ body {
 .alarm-dismiss:hover { opacity: 0.88; }
 
 @media (max-width: 768px) {
-  .main { padding: 32px 18px 110px; }
+  .main {
+    /* Use longhand so safe-area padding-top is NOT overwritten */
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: max(24px, calc(env(safe-area-inset-top, 0px) + 16px));
+    padding-bottom: max(110px, calc(env(safe-area-inset-bottom, 0px) + 90px));
+  }
   .page-title { font-size: 1.6rem; }
   .chart-grid, .sensor-grid, .device-grid { grid-template-columns: 1fr; }
 }
