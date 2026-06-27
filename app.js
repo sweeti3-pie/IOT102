@@ -604,17 +604,20 @@ window.addEventListener('load', () => {
     const root      = document.documentElement;
     const themeMeta = document.getElementById('themeMetaColor');
     const themeImg  = document.getElementById('themeImg');
+    const bg        = dark ? THEME_COLORS.dark : THEME_COLORS.light;
+
     if (dark) {
       root.setAttribute('data-theme', 'dark');
-      if (themeMeta) themeMeta.setAttribute('content', THEME_COLORS.dark);
-      if (themeImg)  themeImg.src = 'img/moon-icon.png';
+      if (themeImg) themeImg.src = 'img/moon-icon.png';
       localStorage.setItem('smartHomeTheme', 'dark');
     } else {
       root.removeAttribute('data-theme');
-      if (themeMeta) themeMeta.setAttribute('content', THEME_COLORS.light);
-      if (themeImg)  themeImg.src = 'img/sun-icon.png';
+      if (themeImg) themeImg.src = 'img/sun-icon.png';
       localStorage.setItem('smartHomeTheme', 'light');
     }
+
+    // Android: update status bar color to match
+    if (themeMeta) themeMeta.setAttribute('content', bg);
   }
 
   // Apply saved theme on first load
