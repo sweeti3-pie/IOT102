@@ -31,6 +31,7 @@
 
 [data-theme="dark"] {
   --bg:        #181a1b;
+  background: #181a1b;
   --bg-card:   #222527;
   --bg-soft:   #2c3033;
   --border:    #3a3f42;
@@ -50,7 +51,10 @@ body, .device-card, .sensor-card, .chart-box, .settings-card, .float-nav {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-html { font-size: 16px; }
+html {
+  font-size: 16px;
+  background: var(--bg);
+}
 
 body {
   background: var(--bg);
