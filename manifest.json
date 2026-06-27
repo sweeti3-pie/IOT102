@@ -1,19 +1,19 @@
 {
   "name": "SmartHome Dashboard",
   "short_name": "SmartHome",
-  "description": "Hệ thống điều khiển nhà thông minh",
+  "description": "Smart home control system and automation",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#faf7f2",
   "theme_color": "#faf7f2",
   "icons": [
     {
-      "src": "img/icon-192.png",
+      "src": "img/dashboard-icon.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "img/icon-512.png",
+      "src": "img/dashboard-icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
