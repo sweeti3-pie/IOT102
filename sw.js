@@ -44,3 +44,32 @@ self.addEventListener('fetch', (event) => {
     )
   );
 });
+
+// ─── NOTIFICATION: receive message from app.js ─────────────────
+// app.js posts { type: 'SHOW_NOTIFICATION', title, body, tag }
+// The service worker shows it — this works even when screen is off
+self.addEventListener('message', event => {
+  if (!event.data || event.data.type !== 'SHOW_NOTIFICATION') return;
+  const { title, body, tag } = event.data;
+  self.registration.showNotification(title, {
+    body,
+    icon:     '/img/dashboard-icon.png',
+    badge:    '/img/dashboard-icon.png',
+    tag:      tag || 'smarthome',
+    renotify: true,
+    vibrate:  [200, 100, 200],
+  });
+});
+ 
+// ─── NOTIFICATION CLICK: open / focus the app ──────────────────
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+      for (const client of list) {
+        if ('focus' in client) return client.focus();
+      }
+      return clients.openWindow('/');
+    })
+  );
+});

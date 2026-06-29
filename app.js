@@ -221,16 +221,54 @@ function runAutomation() {
     isRain ? 'Rain detected — closing to protect laundry'
            : (isNight ? 'Clear night — staying open' : 'Dry — open for drying'));
 
+  // Notify when awning closes due to rain
+  if (isRain && !notified.rain) {
+    sendNotification(
+      '🌧️ Awning Closed',
+      'Rain detected — awning has been closed to protect your laundry.',
+      'awning-rain'
+    );
+    notified.rain   = true;
+    notified.awningOpen = false;
+  }
+  // Notify when awning opens again (rain stopped, daytime)
+  if (!isRain && !isNight && notified.rain && !notified.awningOpen) {
+    sendNotification(
+      '☀️ Awning Opened',
+      'Rain has stopped — awning is open again for drying.',
+      'awning-sun'
+    );
+    notified.rain       = false;
+    notified.awningOpen = true;
+  }
+
   // ── GAS ALARM ──
   if (gas >= THRESH.gasDanger && !alarmActive) {
     triggerAlarm('Danger', `Gas level: ${gas} ppm — ventilate and check for a leak.`, 'danger');
+    if (!notified.gas) {
+      sendNotification(
+        '⚠️ Gas / Smoke Danger!',
+        `Gas level: ${gas} ppm — ventilate the area immediately!`,
+        'gas-danger'
+      );
+      notified.gas = true;
+    }
   } else if (gas >= THRESH.gasWarning && gas < THRESH.gasDanger) {
     if (!prevGasAlarm) {
       addAlert('warning', `Gas elevated: ${gas} ppm — check your appliances`);
+      if (!notified.gas) {
+        sendNotification(
+          '⚠️ Gas Level Warning',
+          `Gas: ${gas} ppm — check your appliances`,
+          'gas-warning'
+        );
+        notified.gas = true;
+      }
       prevGasAlarm = true;
     }
   } else {
     prevGasAlarm = false;
+    notified.gas = false; // reset so next spike triggers again
   }
 }
 
@@ -590,6 +628,25 @@ function startDemoMode() {
 // ─── HELPERS ────────────────────────────────────────────────────
 function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
+// ─── NOTIFICATIONS ─────────────────────────────────────────────
+// Tracks what we already notified so we don't spam the same alert
+const notified = { gas: false, rain: false, awningOpen: false };
+ 
+// Ask permission once, then send via service worker
+async function requestNotifPermission() {
+  if (!('Notification' in window) || !navigator.serviceWorker) return;
+  if (Notification.permission === 'default') {
+    await Notification.requestPermission();
+  }
+}
+ 
+function sendNotification(title, body, tag) {
+  if (Notification.permission !== 'granted') return;
+  navigator.serviceWorker.ready.then(reg => {
+    reg.active.postMessage({ type: 'SHOW_NOTIFICATION', title, body, tag });
+  });
+}
+
 // ─── BOOT ───────────────────────────────────────────────────────
 // Use window 'load' instead of 'DOMContentLoaded' — guarantees all
 // scripts (including firebase-config.js) have fully executed before
@@ -637,6 +694,9 @@ window.addEventListener('load', () => {
       applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
     });
   }
+
+  // Request notification permission on first load
+  requestNotifPermission();
 
   // Charts and Firebase
   initCharts();
